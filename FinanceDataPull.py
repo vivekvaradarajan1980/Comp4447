@@ -10,11 +10,19 @@ parser = argparse.ArgumentParser(
                     description = 'Plots closing stock over last 2 years with 1 hour resolution'
                     )
 
-parser.add_argument('-t','--ticker',type=str,required=True)
-ticker= parser.parse_args().ticker;
+
+parser.add_argument('-t','--ticker',type=str,required=False)
+parser.add_argument('-o','--option',type=str,required=False)
+
+try:
+    ticker= parser.parse_args().ticker;
+    option = parser.parse_args().option;
+except:
+    ticker='GOOG'
+    option='Close'
 data = yf.download(ticker,period='730d',interval='1h')
 
 #data index is basically date information...
 
-plot(data.index,data['Close'])
+plot(data.index,data[option])
 show()
