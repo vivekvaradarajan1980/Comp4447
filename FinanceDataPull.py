@@ -11,15 +11,13 @@ parser = argparse.ArgumentParser(
                     )
 
 
-parser.add_argument('-t','--ticker',type=str,required=False)
-parser.add_argument('-o','--option',type=str,required=False)
+parser.add_argument('-t','--ticker',type=str,required=False, default="GOOG")
+parser.add_argument('-o','--option',type=str,required=False,default="Close")
 
-try:
-    ticker= parser.parse_args().ticker;
-    option = parser.parse_args().option;
-except:
-    ticker='GOOG'
-    option='Close'
+
+ticker= parser.parse_args().ticker
+option = parser.parse_args().option
+
 data = yf.download(ticker,period='730d',interval='1h')
 
 #data index is basically date information...
