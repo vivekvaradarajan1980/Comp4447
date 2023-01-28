@@ -17,9 +17,13 @@ def welcome():
 
 @app.route('/ticker/<symbol>', methods=(['GET']))
 def tickerdata(symbol):
+
     data = yf.download(symbol, period='max', interval='1d')
-    data.to_csv(symbol+'.csv')
-    return data.to_html()
+    if(data.empty!=True):
+        data.to_csv(symbol+'.csv')
+        return data.to_html()
+    else:
+        return render_template('YFinanceFrontEnd.html')
 
 
 @app.route('/finance/', methods=(['POST','GET']))
