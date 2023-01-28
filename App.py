@@ -18,6 +18,7 @@ def welcome():
 @app.route('/ticker/<symbol>', methods=(['GET']))
 def tickerdata(symbol):
     data = yf.download(symbol, period='max', interval='1d')
+    data.to_csv(symbol+'.csv')
     return data.to_html()
 
 
@@ -39,4 +40,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080)
+    app.run(host='127.0.0.1', port=5000)
