@@ -27,7 +27,7 @@ def getTicker():
     if request.method == "POST":
         ticker = request.form['ticker']
 
-        return redirect(url_for('tickerdata', symbol=ticker))
+        return redirect(url_for('tickerdata', symbol=ticker.upper()))
     else:
         # if the user refreshes the form by accident just re-render
         return render_template('YFinanceFrontEnd.html')
