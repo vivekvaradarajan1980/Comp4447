@@ -5,7 +5,7 @@ Project work for Comp 4447 class
 
 Navigate into the directory where you clone this repository on your local machine
 
-Then install all the dependencies in the python requirements.txt using `pip freeze -r requirements`
+Then install all the dependencies in the python requirements.txt using `pip install -r requirements`
 
 Then run from your terminal 'flask run' or `python -i App.py`
 (`flask run` opens the application in port 5000 which is the default but if you use `python -i App.py` it will run it in whatever port you configure it too in the App.py file. !!!)
