@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <h1>{% block title %} Request data from a ticker Symbol of your choice{% endblock %}</h1>
+    <form method="post" action="/finance">
+        <label for="ticker">Ticker symbol</label>
+        <br>
+        <input type="text" name="ticker"
+               placeholder="Message title"
+               value="{{ request.form['ticker'] }}"></input>
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+{% endblock %}
