@@ -2,9 +2,12 @@ import pandas as pd
 import plotly.express as px
 import yfinance as yf
 from flask import Flask, request, render_template, url_for
+from prophet import Prophet
+import plotly.graph_objects as go
 from werkzeug.utils import redirect
 
 from Arima import arima_analysis, arima_figures
+from ProphetAPI import prophet_analysis
 
 app = Flask(__name__)
 
@@ -75,7 +78,14 @@ def arima_prediction():
     q = int(request.form['q'])
     fig = arima_analysis(data,p,d,q,duration=10)
 
-    return fig.to_html()+render_template('arima.html')
+    return fig.to_html()+render_template('arima.html')@app.route('/analysis',methods=(['POST','GET']))
+
+@app.route('/prophet',methods=(['POST','GET']))
+def prophet_prediction():
+    global data
+    fig = prophet_analysis(data)
+
+    return fig.to_html()+render_template('Choose_model.html')
 
 
 
