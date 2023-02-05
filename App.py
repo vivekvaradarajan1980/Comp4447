@@ -43,7 +43,7 @@ def tickerdata(symbol):
     data = yf.download(symbol, period='max', interval='1d')
     if (data.empty != True):
         data.to_csv(symbol + '.csv')
-        return data.to_html()
+        return "<a href=/>Home page</a><br/></br>" +data.to_html()
     else:
         return render_template('YFinanceFrontEnd.html')
 
