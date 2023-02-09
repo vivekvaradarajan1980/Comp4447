@@ -3,6 +3,7 @@ import pandas as pd
 from matplotlib.pylab import *
 import argparse
 from statsmodels.graphics.tsaplots import plot_acf
+from prophet import Prophet
 
 # pull data from specific ticker symbol over a specified period with a specified resolution interval
 
@@ -23,9 +24,30 @@ ticker = parser.parse_args().ticker
 option = parser.parse_args().option
 period = parser.parse_args().period
 interval = parser.parse_args().interval
-data = yf.download(ticker, period=period, interval=interval)
+data = yf.download(ticker, period=period, group_by='column', interval=interval)
 
-# data index is basically date information...
+# Resetting index so dates can be used. 
+data.reset_index(inplace=True)
+df1=data[['Date', 'Close']]
 
-plot(data.index, data[option])
-show()
+# Convert the date column to datetime
+df1['Date'] = pd.to_datetime(df1['Date'])
+
+# Remove the time zone information
+df1['Date'] = df1['Date'].dt.tz_localize(None)
+#Rename columns for Prophet requirements
+df1=df1.rename(columns = {"Date": "ds", "Close": "y"})
+print(df1)
+
+#Create prophet object
+m = Prophet()
+m.fit(df1)  #Meta Magic
+
+#Future predictions
+
+future = m.make_future_dataframe(periods = 14)
+
+x = m.predict(future)
+
+y = m.plot(x)
+
