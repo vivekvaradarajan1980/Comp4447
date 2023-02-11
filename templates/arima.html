@@ -1,0 +1,27 @@
+
+<div>
+    <h1>{% block title %} Enter your ARIMA model parameters p, d and q </h1>
+    <form method="post" action="/arimaanalysis">
+        <label for="p">p</label>
+        <br>
+        <input type="text" name="p"
+               placeholder="Enter p"
+               value="{{ request.form['p'] }}">
+        <br>
+        <label for="d">d</label>
+        <br>
+        <input type="text" name="p"
+               placeholder="Enter d"
+               value="{{ request.form['d'] }}">
+        <br>
+        <label for="q">q</label>
+        <br>
+        <input type="text" name="q"
+               placeholder="Enter q"
+               value="{{ request.form['q'] }}">
+        <br>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+    </div>
+{% endblock %}

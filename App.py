@@ -1,12 +1,14 @@
 import io
 import json
 
-import plotly.utils
+import numpy as np
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 from flask import Flask, request, render_template, url_for, Response
 import yfinance as yf
 import pandas as pd
 from matplotlib.backends.backend_agg import FigureCanvasAgg
-from statsmodels.graphics.tsaplots import plot_pacf
+from statsmodels.graphics.tsaplots import pacf,acf
 from matplotlib.pylab import Figure
 import plotly.express as px
 import plotly.graph_objects as go
@@ -19,17 +21,15 @@ global data  # we will use this to extract the data from yfinance and consume it
 data = pd.DataFrame({})
 
 
-@app.route('/prediction/', methods=['GET', 'POST'])
+@app.route('/prediction', methods=['GET', 'POST'])
 def prediction():
     global data
 
     fig=px.line(data, x=data.index, y=data['Close'])
     """
-    here is where the data wrangling comes , do some arima type stuff 
-    and prophet api stuff ?
+   Returns plot and 2 buttons to choose which model we want to look at 
     """
-    return fig.to_html()
-
+    return fig.to_html()+render_template('Choose_model.html')
 
 
 @app.route('/summary/', methods=['GET', 'POST'])
@@ -42,8 +42,8 @@ def tickerdata(symbol):
     global data
     data = yf.download(symbol, period='max', interval='1d')
     if (data.empty != True):
-        data.to_csv(symbol + '.csv')
-        return "<a href=/>Home page</a><br/></br>" +data.to_html()
+
+        return "<a href=/prediction>Further insights into your chosen stock</a><br/></br>" +data.to_html()
     else:
         return render_template('YFinanceFrontEnd.html')
 
@@ -64,6 +64,28 @@ def getTicker():
 def index():
     return render_template('YFinanceFrontEnd.html')
 
+
+@app.route('/arimadiagnostics',methods=(['POST','GET']))
+def arima():
+    global data
+    df_pacf = pacf(data['Close'], nlags=30)
+
+    fig=go.Figure()
+    fig.add_trace(go.Scatter(
+        x=np.arange(len(df_pacf)),
+        y=df_pacf,
+        name='PACF',
+    ))
+
+    fig.add_trace(go.Scatter(x=np.arange(len(data)-1),y=np.diff(data.Close.values),name='1st difference'))
+
+
+    return fig.to_html()+render_template('arima.html')
+
+
+@app.route('/arimaanalysis',methods=(['POST','GET']))
+def arima_prediction():
+    """ do the stuff with arima here and show results"""
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
