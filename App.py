@@ -1,19 +1,10 @@
-import io
-import json
-
-import numpy as np
-from plotly.subplots import make_subplots
-import plotly.graph_objects as go
-from flask import Flask, request, render_template, url_for, Response
-import yfinance as yf
 import pandas as pd
-from matplotlib.backends.backend_agg import FigureCanvasAgg
-from statsmodels.graphics.tsaplots import pacf,acf
-from matplotlib.pylab import Figure
 import plotly.express as px
-import plotly.graph_objects as go
-
+import yfinance as yf
+from flask import Flask, request, render_template, url_for
 from werkzeug.utils import redirect
+
+from Arima import arima_analysis, arima_figures
 
 app = Flask(__name__)
 
@@ -40,7 +31,7 @@ def summary():
 @app.route('/ticker/<symbol>', methods=(['GET']))
 def tickerdata(symbol):
     global data
-    data = yf.download(symbol, period='max', interval='1d')
+    data = yf.download(symbol, period='5y', interval='1d')
     if (data.empty != True):
 
         return "<a href=/prediction>Further insights into your chosen stock</a><br/></br>" +data.to_html()
@@ -68,24 +59,27 @@ def index():
 @app.route('/arimadiagnostics',methods=(['POST','GET']))
 def arima():
     global data
-    df_pacf = pacf(data['Close'], nlags=30)
-
-    fig=go.Figure()
-    fig.add_trace(go.Scatter(
-        x=np.arange(len(df_pacf)),
-        y=df_pacf,
-        name='PACF',
-    ))
-
-    fig.add_trace(go.Scatter(x=np.arange(len(data)-1),y=np.diff(data.Close.values),name='1st difference'))
-
+    fig = arima_figures(data)
 
     return fig.to_html()+render_template('arima.html')
 
 
-@app.route('/arimaanalysis',methods=(['POST','GET']))
+
+
+
+@app.route('/analysis',methods=(['POST','GET']))
 def arima_prediction():
-    """ do the stuff with arima here and show results"""
+    global data
+    p = int(request.form['p'])
+    d = int(request.form['d'])
+    q = int(request.form['q'])
+    fig = arima_analysis(data,p,d,q,duration=10)
+
+    return fig.to_html()+render_template('arima.html')
+
+
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
