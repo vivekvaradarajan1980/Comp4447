@@ -78,7 +78,7 @@ def arima_prediction():
     q = int(request.form['q'])
     fig = arima_analysis(data,p,d,q,duration=10)
 
-    return fig.to_html()+render_template('arima.html')@app.route('/analysis',methods=(['POST','GET']))
+    return fig.to_html()+render_template('arima.html')
 
 @app.route('/prophet',methods=(['POST','GET']))
 def prophet_prediction():
