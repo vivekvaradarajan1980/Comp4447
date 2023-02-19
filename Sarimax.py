@@ -15,7 +15,7 @@ def sarimax_analysis(data,p,d,q,P,D,Q,s,duration):
       
     Returns:
     
-      (mean_ci_upper, mean_ci_lower)
+      (fit, fc): tuple containing fit object returned by the model fit and forecast data.
       
     Example:
     
