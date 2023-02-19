@@ -31,7 +31,7 @@ data.reset_index(inplace=True)
 df1=data[['Date', 'Close']]
 
 # Convert the date column to datetime
-df1['Date'] = pd.to_datetime(df1['Date'])
+df1.loc[:, 'Date'] = pd.to_datetime(df1['Date'])
 
 # Remove the time zone information
 df1['Date'] = df1['Date'].dt.tz_localize(None)
