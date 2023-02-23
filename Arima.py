@@ -8,10 +8,10 @@ from statsmodels.tsa.stattools import pacf, acf
 import plotly.graph_objects as go
 
 def arima_analysis(data,p,d,q,duration):
-
-    model = ARIMA(pd.Series(data['Close']), order=(p, d, q))
+    model = ARIMA(data['Close'], order=(p, d, q))
     fit=model.fit()
     fc= fit.get_forecast(duration) .summary_frame()
+    fc.index=pd.date_range(data.index[-1].date(),periods=duration)
     upper_est=fc['mean_ci_upper']
     lower_est=fc['mean_ci_lower']
     mean_est=fc['mean']
@@ -25,7 +25,7 @@ def arima_analysis(data,p,d,q,duration):
     fig.add_trace(go.Scatter(x=fc.index, y=lower_est, mode='lines',line=dict(color='rgba(255,255,255,0)'),showlegend=False))
     fig.add_trace(go.Scatter(x=fc.index, y=upper_est, mode='lines',line=dict(color='rgba(255,255,255,0)'),fill='tonexty', fillcolor='rgba(0, 0, 255, 0.2)'
                             , showlegend=False))
-    fig.update_layout(title='ARIMA Forecasts with Confidence Intervals', xaxis_title='day, index',
+    fig.update_layout(title='ARIMA Forecasts with Confidence Intervals', xaxis_title='date',
                       yaxis_title='Closing values')
     return fig
 

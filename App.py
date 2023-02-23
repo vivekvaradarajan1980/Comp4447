@@ -36,8 +36,6 @@ def summary():
 def tickerdata(symbol):
     global data
     data = yf.download(symbol, period='5y', interval='1d')
-    data["Date"] = data.index
-    data.reset_index(drop=True, inplace=True)
     if (data.empty != True):
 
         return "<a href=/prediction>Further insights into your chosen stock</a><br/></br>" +data.to_html()

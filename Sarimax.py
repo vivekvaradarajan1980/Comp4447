@@ -26,10 +26,11 @@ def sarimax_analysis(data,p,d,q,P,D,Q,s,duration):
       >>> (fit, fc) = sarimax_analysis(data, p= 2, d= 1,q= 1, s= 4, P= 1, D= 1, Q= 1, duration= 3)
     """
 
-    model=sm.tsa.SARIMAX(pd.Series(data["Close"].values),order=(p,d,q),
+    model=sm.tsa.SARIMAX(data["Close"],order=(p,d,q),
                         seasonal_order=(P,D,Q,s))
     fit=model.fit()
     fc= fit.get_forecast(duration) .summary_frame()
+    fc.index = pd.date_range(data.index[-1].date(), periods=duration)
     upper_est = fc['mean_ci_upper']
     lower_est = fc['mean_ci_lower']
     mean_est = fc['mean']
@@ -45,7 +46,7 @@ def sarimax_analysis(data,p,d,q,P,D,Q,s,duration):
         go.Scatter(x=fc.index, y=upper_est, mode='lines', line=dict(color='rgba(255,255,255,0)'), fill='tonexty',
                    fillcolor='rgba(0, 0, 255, 0.2)'
                    , showlegend=False))
-    fig.update_layout(title='ARIMA Forecasts with Confidence Intervals', xaxis_title='day, index',
+    fig.update_layout(title='ARIMA Forecasts with Confidence Intervals', xaxis_title='date',
                       yaxis_title='Closing values')
     return fig
 
