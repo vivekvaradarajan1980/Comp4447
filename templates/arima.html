@@ -1,7 +1,9 @@
 
 <div>
-    <h1>{% block title %} Enter your ARIMA model parameters p, d and q </h1>
-    <form method="post" action="/analysis">
+    <h1>{% block title %} Enter your ARIMAX model parameters p, d and q </h1>
+    <form method="post" action="/arimamodel">
+        <div>
+
         <label for="p">p</label>
         <br>
         <input type="text" name="p"
@@ -21,7 +23,16 @@
                value="{{ request.form['q'] }}">
         <br>
         <br>
+        <input type="text" name="duration"
+               placeholder="Enter forecast duration in days"
+               value="{{ request.form['duration'] }}">
+        <br>
+        <br>
+            <label for="SARIMAX">
+                <input type="checkbox" name="sarima" value="1"> SARIMAX
+            </label>
         <button type="submit">Submit</button>
+        </div>
     </form>
     </div>
 {% endblock %}

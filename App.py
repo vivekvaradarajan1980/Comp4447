@@ -8,6 +8,7 @@ from werkzeug.utils import redirect
 
 from Arima import arima_analysis, arima_figures
 from ProphetAPI import prophet_analysis
+from Sarimax import sarimax_analysis
 
 app = Flask(__name__)
 
@@ -72,14 +73,20 @@ def arima():
 
 
 
-@app.route('/analysis',methods=(['POST','GET']))
+@app.route('/arimamodel',methods=(['POST','GET']))
 def arima_prediction():
     global data
     p = int(request.form['p'])
     d = int(request.form['d'])
     q = int(request.form['q'])
+    sarima = request.form.get('sarima')
     duration = int(request.form['duration'])
-    fig = arima_analysis(data,p,d,q,duration)
+
+    if(sarima):
+        fig = sarimax_analysis(data,p,d,q,p,d,q,4,duration)
+    else:
+        fig = arima_analysis(data,p,d,q,duration)
+
 
     return fig.to_html()+render_template('arima.html')
 

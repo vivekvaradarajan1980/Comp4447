@@ -1,9 +1,7 @@
 <div>
     <h1>{% block title %} Choose your model {% endblock %}</h1>
     <form method="post" action="/arimadiagnostics">
-          <input type="text" name="duration"
-               placeholder="Enter forecast duration in days"
-               value="{{ request.form['duration'] }}">
+
         <button type="submit">Arima Model</button>
     </form>
     <form method="post" action="/prophet">
