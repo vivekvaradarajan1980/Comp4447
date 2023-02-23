@@ -35,6 +35,8 @@ def summary():
 def tickerdata(symbol):
     global data
     data = yf.download(symbol, period='5y', interval='1d')
+    data["Date"] = data.index
+    data.reset_index(drop=True, inplace=True)
     if (data.empty != True):
 
         return "<a href=/prediction>Further insights into your chosen stock</a><br/></br>" +data.to_html()
@@ -76,18 +78,17 @@ def arima_prediction():
     p = int(request.form['p'])
     d = int(request.form['d'])
     q = int(request.form['q'])
-    fig = arima_analysis(data,p,d,q,duration=10)
+    duration = int(request.form['duration'])
+    fig = arima_analysis(data,p,d,q,duration)
 
     return fig.to_html()+render_template('arima.html')
 
 @app.route('/prophet',methods=(['POST','GET']))
 def prophet_prediction():
     global data
-    fig = prophet_analysis(data)
+    fig = prophet_analysis(data,int(request.form['duration']))
 
     return fig.to_html()+render_template('Choose_model.html')
-
-
 
 
 

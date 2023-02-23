@@ -9,17 +9,18 @@ import plotly.graph_objects as go
 
 def arima_analysis(data,p,d,q,duration):
 
-    model = ARIMA(pd.Series(data["Close"].values), order=(p, d, q))
+    model = ARIMA(pd.Series(data['Close']), order=(p, d, q))
     fit=model.fit()
     fc= fit.get_forecast(duration) .summary_frame()
     upper_est=fc['mean_ci_upper']
     lower_est=fc['mean_ci_lower']
     mean_est=fc['mean']
 
+
     # Create Plotly plot of fitted values, predicted values and confidence interval range
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=data.reset_index().index, y=data['Close'].values, mode='lines', name='Actual;'))
-    fig.add_trace(go.Scatter(x=data.reset_index().index, y=fit.fittedvalues, mode='lines', name='Fitted'))
+    fig.add_trace(go.Scatter(x=data.index, y=data['Close'].values, mode='lines', name='Actual;'))
+    fig.add_trace(go.Scatter(x=data.index, y=fit.fittedvalues, mode='lines', name='Fitted'))
     fig.add_trace(go.Scatter(x=fc.index, y=mean_est, mode='lines', name='Predicted'))
     fig.add_trace(go.Scatter(x=fc.index, y=lower_est, mode='lines',line=dict(color='rgba(255,255,255,0)'),showlegend=False))
     fig.add_trace(go.Scatter(x=fc.index, y=upper_est, mode='lines',line=dict(color='rgba(255,255,255,0)'),fill='tonexty', fillcolor='rgba(0, 0, 255, 0.2)'

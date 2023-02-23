@@ -8,6 +8,7 @@ def prophet_analysis(data, duration=14):
     df1 = data[['Date', 'Close']]
     # Convert the date column to datetime
     df1['Date'] = pd.to_datetime(df1['Date'])
+    df1['Date'] = df1['Date'].dt.tz_localize(None)
     df1 = df1.rename(columns={"Date": "ds", "Close": "y"})
     m = Prophet(daily_seasonality=True)
     m.fit(df1)
