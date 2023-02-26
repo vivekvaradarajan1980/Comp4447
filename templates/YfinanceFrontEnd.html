@@ -4,6 +4,7 @@
 <div>
     <h1>{% block title %} Request data from a ticker Symbol of your choice{% endblock %}</h1>
     <form method="post" action="/finance">
+        <div>
         <label for="ticker">Ticker symbol</label>
         <br>
         <input type="text" name="ticker"
@@ -11,6 +12,14 @@
                value="{{ request.form['ticker'] }}">
         <br>
         <br>
+          <label for="history">Number of years of data from today</label>
+        <br>
+        <input type="text" name="history"
+               placeholder="Enter in years from 1 to 5e"
+               value="{{ request.form['history'] }}">
+        <br>
+        <br>
+        </div>
         <button type="submit">Submit</button>
     </form>
     </div>

@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 global data  # we will use this to extract the data from yfinance and consume it in our endpoints
 data = pd.DataFrame({})
-
+global years
 
 @app.route('/prediction', methods=['GET', 'POST'])
 def prediction():
@@ -35,7 +35,9 @@ def summary():
 @app.route('/ticker/<symbol>', methods=(['GET']))
 def tickerdata(symbol):
     global data
-    data = yf.download(symbol, period='5y', interval='1d')
+    global years
+
+    data = yf.download(symbol, period=years+"y", interval='1d')
     if (data.empty != True):
 
         return "<a href=/prediction>Further insights into your chosen stock</a><br/></br>" +data.to_html()
@@ -47,6 +49,8 @@ def tickerdata(symbol):
 def getTicker():
     if request.method == "POST":
         ticker = request.form['ticker']
+        global years
+        years=request.form['history']
 
         return redirect(url_for('tickerdata', symbol=ticker.upper()))
     else:
