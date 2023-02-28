@@ -78,14 +78,24 @@ def arima():
 @app.route('/arimamodel',methods=(['POST','GET']))
 def arima_prediction():
     global data
-    p = int(request.form['p'])
-    d = int(request.form['d'])
-    q = int(request.form['q'])
-    sarima = request.form.get('sarima')
-    duration = int(request.form['duration'])
+    try:
+        p = int(request.form['p'])
+        d = int(request.form['d'])
+        q = int(request.form['q'])
+        no_args=0
+    except:
+        no_args=1
 
-    if(sarima):
-        fig = sarimax_analysis(data,p,d,q,p,d,q,4,duration)
+    sarima = request.form.get('sarima')
+    try:
+        duration = int(request.form['duration'])
+    except:
+        duration=14
+
+    if(sarima and no_args==0):
+        fig = sarimax_analysis(data,duration,p,d,q,p,d,q,4)
+    elif(sarima and no_args==1):
+        fig = sarimax_analysis(data,duration)
     else:
         fig = arima_analysis(data,p,d,q,duration)
 

@@ -2,7 +2,7 @@ import statsmodels.api as sm
 import pandas as pd
 import plotly.graph_objects as go
 
-def sarimax_analysis(data,p,d,q,P,D,Q,s,duration):
+def sarimax_analysis(data,duration,p=1,d=1,q=1,P=1,D=1,Q=1,s=4):
     """
     model similar to arima but good for stocks that are more seasonal.
     0, 1 and 2 are good values for p,d,q if you don't know what to pick.
