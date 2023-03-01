@@ -17,5 +17,11 @@ def prophet_analysis(data, duration=14):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df1['ds'], y=df1['y'], name='Actual'))
     fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast['yhat'], name='Predicted'))
+    fig.add_trace(
+        go.Scatter(x=forecast['ds'], y=forecast['yhat_lower'], mode='lines', line=dict(color='rgba(255,255,255,0)'), showlegend=False))
+    fig.add_trace(
+        go.Scatter(x=forecast['ds'], y=forecast['yhat_upper'], mode='lines', line=dict(color='rgba(255,255,255,0)'), fill='tonexty',
+                   fillcolor='rgba(0, 0, 255, 0.2)'
+                   , showlegend=False))
 
     return fig
