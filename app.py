@@ -27,7 +27,7 @@ def prediction():
     """
     result = adfuller(data['Close'])
 
-    return fig.to_html()+str(result)+render_template('Choose_model.html')
+    return fig.to_html()+ str("AdFuller test for stationarity")+str(result)+render_template('Choose_model.html')
 
 
 @app.route('/summary/', methods=['GET', 'POST'])
