@@ -1,4 +1,9 @@
-## Comp4447 project work
+# Comp4447 project work 
+## An interactive Yfinance based live ingestion application which can forecast stock data using ARIMA/SARIMA and Prophet API models. 
+## Spotlight  Aaron for dockerizing application 
+## Spotlight Bradley for SARIMA/ARIMA 
+## Spotlight Kurt for prophet modeling 
+## Spotlight Vivek for Flask Api integration
 
 #### An interactive Flask based Web-App application that can predict using Arima/Sarima or Prophet the closing stock prices for any ticker of your choice
 
