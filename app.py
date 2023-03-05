@@ -4,6 +4,7 @@ import yfinance as yf
 from flask import Flask, request, render_template, url_for
 from prophet import Prophet
 import plotly.graph_objects as go
+from statsmodels.tsa.stattools import adfuller
 from werkzeug.utils import redirect
 
 from Arima import arima_analysis, arima_figures
@@ -24,7 +25,9 @@ def prediction():
     """
    Returns plot and 2 buttons to choose which model we want to look at 
     """
-    return fig.to_html()+render_template('Choose_model.html')
+    result = adfuller(data['Close'])
+
+    return fig.to_html()+str(result)+render_template('Choose_model.html')
 
 
 @app.route('/summary/', methods=['GET', 'POST'])
