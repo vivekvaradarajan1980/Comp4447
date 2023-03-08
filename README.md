@@ -23,7 +23,7 @@
 
 ## Data set and motivation
 ### Stock price forecasting using a web based application interface
-## The idea is to make an interactive application that can be used to forecast stock price information for any chosen ticker symbol The forecasting model is trained on data using the current date to a certain time in history which is also a flexible parameter chosen by the user of the application. The forecasting duration is also a user customizable parameter in the application.
+## The idea is to make an interactive application that can be used to forecast stock price information for any chosen ticker symbol The forecasting model is trained on data from the current date to a certain time in history which is a parameter chosen by the user. The forecasting duration is also a user customizable parameter in the application.
 ### Highlights of this project are 
 - Yfinance for data ingestion
 - Statsmodels and Prophet for data modeling
