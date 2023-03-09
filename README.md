@@ -3,6 +3,20 @@
 ## Spotlight  Aaron for dockerizing application 
 ## Spotlight Bradley for SARIMA/ARIMA 
 ## Spotlight Kurt for prophet modeling 
+Facebook Prophet is an open-sourced tool available in Python or R that specifically helps with time-series forecasting. The motivation behind Prophet was to create something easy to use but customizable.  
+
+Originally built to make predictions based on social media interactions, one of Prophet’s strengths is its ability to handle seasonal data. You can tailor your model for weekly, monthly, and yearly seasonal adjustments. Prophet can also adjust for holidays; you can even specify a specific country’s holiday schedule or add custom holidays. 
+
+Prophet provides a collection of options in its models. These include uncertainty estimation, logistic vs linear regression, trend changepoints, and the ability to add regressors. Prophet also allows the user to run diagnostics. For example, you can run a rolling origin cross validation with customizable time options. 
+
+The math behind the model is described in detail in Taylor SJ, Letham B. 2017. Forecasting at scale. PeerJ Preprints 5:e3190v2 https://doi.org/10.7287/peerj.preprints.3190v2. This article describes how Prophet incorporates a variety of linear models and smoothers to create a polished time-series forecasting tool. 
+
+You can visit the Facebook Open-Source description of the project on GitHub to install or get additional information on how to use it.  The repository itself is also on GitHub. The links are below:
+
+https://facebook.github.io/prophet/
+https://github.com/facebook/prophet
+
+
 ## Spotlight Vivek for Flask Api integration
 
 #### An interactive Flask based Web-App application that can predict using Arima/Sarima or Prophet the closing stock prices for any ticker of your choice
