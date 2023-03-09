@@ -14,6 +14,8 @@ The math behind the model is described in detail in Taylor SJ, Letham B. 2017. F
 You can visit the Facebook Open-Source description of the project on GitHub to install or get additional information on how to use it.  The repository itself is also on GitHub. The links are below:
 
 https://facebook.github.io/prophet/
+
+
 https://github.com/facebook/prophet
 
 
