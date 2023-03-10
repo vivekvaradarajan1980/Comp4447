@@ -21,7 +21,7 @@ https://github.com/facebook/prophet
 
 ## Spotlight Vivek for Flask Api integration
 
-#### An interactive Flask based Web-App application that can predict using Arima/Sarima or Prophet the closing stock prices for any ticker of your choice
+#### An interactive Flask based Web-App application for predicting closing stock prices using Arima/Sarima or Prophet for any ticker of your choice
 
 
 ### To get started clone this repository in your personal workspace on your machine using `git clone https://github.com/vivekvaradarajan1980/Comp4447.git`
@@ -38,7 +38,7 @@ https://github.com/facebook/prophet
 - Navigate to your browser to localhost:XXXX where XXXX is whatever port your application is running on.
 
 ## Data set and motivation
-### Stock price forecasting using a web based application interface
+### Stock price forecasting using an interactive web application
 ## The idea is to make an interactive application that can be used to forecast stock price information for any chosen ticker symbol The forecasting model is trained on data from the current date to a certain time in history which is a parameter chosen by the user. The forecasting duration is also a user customizable parameter in the application.
 ### Highlights of this project are 
 - Yfinance for data ingestion
@@ -48,10 +48,10 @@ https://github.com/facebook/prophet
 - docker for containerizing the application
 
 Useage of the application
-- First the API gives the user an interface to choose a ticker symbol and the duration of data to train the model from current date
-- Then the application shows an initial plot of the time series data of the chosen ticker sybmol for the duration selected along with the ADFueller test for stationarity.
+- First the API gives the user an interface to choose a ticker symbol and the duration of data to train the model on from current date
+- Then the application shows an initial plot of the time series data of the chosen ticker sybmol for the duration selected along with the ADFueller test for stationarity. A p-value less than 0.05 indicates that the data is stationary.
 - At this point, the user can pick a model for forecasting
 - If Arima is chosen, the user will be presented with a PACF, ACF and first order difference. 
   1. At this point the user can make a best guess p,d,q estimate and enter a duration for forecasting can be entered in the input fields
   2. An additional seasonality option using the SARIMAX can be checked to account for any seasonal variations in the data.
-- For Prophet, the beauty of the model is that it is absolutely automated and no parameters need be set except the duration of forecast required
+- For Prophet, the beauty of the model is that it is absolutely automated and no parameters need be set except the duration of forecast required. Although as mnentioned in [prophet](https://github.com/vivekvaradarajan1980/Comp4447/edit/main/README.md#spotlight-kurt-for-prophet-modeling) one can specify or account for specific holidays if there should be such a pattern in the data. 
