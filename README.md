@@ -2,6 +2,16 @@
 ## An interactive Yfinance based live ingestion application which can forecast stock data using ARIMA/SARIMA and Prophet API models. 
 ## Spotlight  Aaron for dockerizing application 
 ## Spotlight Bradley for SARIMA/ARIMA 
+ARIMA is a model for time series forecasting. The name stands for auto regressive integrated moving average.  The function takes 3 parameters, p,d and q with default values of 1, 1, 1
+
+p determines how many auto regressive terms are in the model, or how many terms there are based on previous predictions from the model
+
+q determines how many moving average terms are in the model, or how many are based on the error
+
+d determines how many times the data is differenced. This is done to make the data stationary, usually a value of d=1 is satisfactory
+
+SARIMA is a variant of the arima model that accounts for seasonality.  It has an additional parameter s that sets the seasonal period (default is 4).  There are also aditional PDQ parameters for the seasonal period that are set to 1 by default.
+
 ## Spotlight Kurt for prophet modeling 
 Facebook Prophet is an open-sourced tool available in Python or R that specifically helps with time-series forecasting. The motivation behind Prophet was to create something easy to use but customizable.  
 
