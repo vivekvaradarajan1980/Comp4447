@@ -99,8 +99,10 @@ def arima_prediction():
         fig = sarimax_analysis(data,duration,p,d,q,p,d,q,4)
     elif(sarima and no_args==1):
         fig = sarimax_analysis(data,duration)
+    elif(no_args==0):
+        fig = arima_analysis(data,duration,p,d,q)
     else:
-        fig = arima_analysis(data,p,d,q,duration)
+        fig = arima_analysis(data, duration)
 
 
     return fig.to_html()+render_template('arima.html')

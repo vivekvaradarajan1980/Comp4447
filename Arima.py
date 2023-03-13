@@ -7,7 +7,7 @@ from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.stattools import pacf, acf
 import plotly.graph_objects as go
 
-def arima_analysis(data,p,d,q,duration):
+def arima_analysis(data,duration=14,p=1,d=1,q=1):
     model = ARIMA(data['Close'], order=(p, d, q))
     fit=model.fit()
     fc= fit.get_forecast(duration) .summary_frame()
